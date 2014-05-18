@@ -29,6 +29,9 @@ class Muttkz < Formula
   conflicts_with 'tin',
     :because => 'both install mmdf.5 and mbox.5 man pages'
 
+  conflicts_with 'mutt',
+    :because => 'both install mutt and mutt man pages'
+
   option "with-debug", "Build with debug option enabled"
   option "with-trash-patch", "Apply trash folder patch"
   option "with-s-lang", "Build against slang instead of ncurses"
