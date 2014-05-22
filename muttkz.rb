@@ -6,13 +6,6 @@ class Muttkz < Formula
   sha1 '9829952945c14644c33e65761f2fd1769cd1fca2'
   revision 1
 
- # bottle do
- #   revision 1
- #   sha1 "5aa656ffd793e57b26642b82c514e0195e32dd1e" => :mavericks
- #   sha1 "56302c5553e7bf5b31db3720ab22c6343c11c428" => :mountain_lion
- #   sha1 "8b7dad42c73723e25cb874e2654c8754218f580a" => :lion
- # end
-
   head do
     url 'http://dev.mutt.org/hg/mutt#default', :using => :hg
 
@@ -38,16 +31,15 @@ class Muttkz < Formula
   option "with-ignore-thread-patch", "Apply ignore-thread patch"
   option "with-pgp-verbose-mime-patch", "Apply PGP verbose mime patch"
   option "with-confirm-attachment-patch", "Apply confirm attachment patch"
-  option "with-notmuch", "Add notmuch support"
 
   depends_on :autoconf
   depends_on :automake
 
   depends_on 'openssl'
   depends_on 'tokyo-cabinet'
+  depends_on 'notmuch'
   depends_on 's-lang' => :optional
   depends_on 'gpgme' => :optional
-  depends_on 'notmuch' => :optional
 
   patch do
     url "ftp://ftp.openbsd.org/pub/OpenBSD/distfiles/mutt/trashfolder-1.5.22.diff0.gz"
@@ -83,13 +75,13 @@ class Muttkz < Formula
             "--enable-pop",
             "--enable-hcache",
             "--with-tokyocabinet",
+	    "--enable-notmuch",
             # This is just a trick to keep 'make install' from trying to chgrp
             # the mutt_dotlock file (which we can't do if we're running as an
             # unpriviledged user)
             "--with-homespool=.mbox"]
     args << "--with-slang" if build.with? 's-lang'
     args << "--enable-gpgme" if build.with? 'gpgme'
-    args << "--enable-notmuch" if build.with? 'notmuch'
 
     if build.with? 'debug'
       args << "--enable-debug"
