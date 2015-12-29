@@ -2,8 +2,8 @@ require 'formula'
 
 class Muttkz < Formula
   homepage 'https://kzak.redcrew.org/doku.php?id=mutt:start'
-  url 'ftp://redcrew.org/pub/mutt-kz/v1.5.22.1/mutt-kz-1.5.22.1.tar.xz'
-  sha1 '9829952945c14644c33e65761f2fd1769cd1fca2'
+  url 'https://github.com/karelzak/mutt-kz/archive/v1.5.23.1.tar.gz'
+  sha256 '1ffa8f200f7a6d0ecb14a2e791a788f8821e6a0da6668bd90520888e5c866406'
   revision 1
 
   head do
