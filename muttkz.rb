@@ -4,7 +4,7 @@ class Muttkz < Formula
   homepage 'https://kzak.redcrew.org/doku.php?id=mutt:start'
   url 'https://github.com/karelzak/mutt-kz/archive/v1.5.23.1.tar.gz'
   sha256 '1ffa8f200f7a6d0ecb14a2e791a788f8821e6a0da6668bd90520888e5c866406'
-  revision 1
+  revision 2
 
   head do
     url 'http://dev.mutt.org/hg/mutt#default', :using => :hg
@@ -45,6 +45,10 @@ class Muttkz < Formula
     url "ftp://ftp.openbsd.org/pub/OpenBSD/distfiles/mutt/trashfolder-1.5.22.diff0.gz"
     sha1 "c597566c26e270b99c6f57e046512a663d2f415e"
   end if build.with? "trash-patch"
+
+  # patching segfaults for empty keys
+  # http://permalink.gmane.org/gmane.mail.mutt.devel/21951
+  patch :DATA
 
   # original source for this went missing, patch sourced from Arch at
   # https://aur.archlinux.org/packages/mutt-ignore-thread/
@@ -96,3 +100,19 @@ class Muttkz < Formula
     (share/'doc/mutt').install resource('html') if build.head?
   end
 end
+
+__END__
+diff --git a/pgpkey.c b/pgpkey.c
+index a824fd7..9d56d78 100644
+--- a/pgpkey.c
++++ b/pgpkey.c
+@@ -864,7 +864,7 @@ pgp_key_t pgp_getkeybyaddr (ADDRESS * a, short abilities, pgp_ring_t keyring,
+ 
+     for (q = k->address; q; q = q->next)
+     {
+-      r = rfc822_parse_adrlist (NULL, q->addr);
++      r = rfc822_parse_adrlist (NULL, NONULL (q->addr));
+ 
+       for (p = r; p; p = p->next)
+       {
+
