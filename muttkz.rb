@@ -2,9 +2,9 @@ require 'formula'
 
 class Muttkz < Formula
   homepage 'https://kzak.redcrew.org/doku.php?id=mutt:start'
-  url 'https://github.com/karelzak/mutt-kz/archive/v1.5.23.1.tar.gz'
-  sha256 '1ffa8f200f7a6d0ecb14a2e791a788f8821e6a0da6668bd90520888e5c866406'
-  revision 2
+  url 'https://github.com/karelzak/mutt-kz/archive/v1.6.0.1.tar.gz'
+  sha256 '7832ba066fb6d2681450e4c32b910dfb645ae7afd99dfa6b83c33ce1c5e58cea'
+  revision 1
 
   head do
     url 'http://dev.mutt.org/hg/mutt#default', :using => :hg
@@ -48,7 +48,7 @@ class Muttkz < Formula
 
   # patching segfaults for empty keys
   # http://permalink.gmane.org/gmane.mail.mutt.devel/21951
-  patch :DATA
+  # patch :DATA
 
   # original source for this went missing, patch sourced from Arch at
   # https://aur.archlinux.org/packages/mutt-ignore-thread/
@@ -80,6 +80,7 @@ class Muttkz < Formula
             "--enable-hcache",
             "--with-tokyocabinet",
 	    "--enable-notmuch",
+            "--enable-sidebar",
             # This is just a trick to keep 'make install' from trying to chgrp
             # the mutt_dotlock file (which we can't do if we're running as an
             # unpriviledged user)
