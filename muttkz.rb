@@ -14,11 +14,6 @@ class Muttkz < Formula
     end
   end
 
-  unless Tab.for_name('signing-party').used_options.include? 'with-rename-pgpring'
-    conflicts_with 'signing-party',
-      :because => 'mutt installs a private copy of pgpring'
-  end
-
   conflicts_with 'tin',
     :because => 'both install mmdf.5 and mbox.5 man pages'
 
@@ -31,8 +26,9 @@ class Muttkz < Formula
   option "with-ignore-thread-patch", "Apply ignore-thread patch"
   option "with-pgp-verbose-mime-patch", "Apply PGP verbose mime patch"
 
-  depends_on :autoconf
-  depends_on :automake
+
+  depends_on "autoconf"
+  depends_on "automake"
 
   depends_on 'openssl'
   depends_on 'tokyo-cabinet'
